@@ -1,25 +1,40 @@
-/* Por seguridad no picar en watch sass {
+/* Por seguridad no picar en watch sass */
+
+$spin-duration: 2.5s;
+$spin-easing: cubic-bezier(0, 0.4, 0.4, 1.025);
+
+$size: 400px;
+$button-size: 12em;
+
+$D: $size;
+$R: $size * 0.5;
+
+* {
   margin: 0;
   padding: 0;
-  
 }
 
 .Body {
-  background-color: antiquewhite;
-  padding-bottom: 50px;
+  background-color: rgb(221, 244, 217);
 }
 
+/* Decoracion del Navbar */
 nav {
-  background-color: #7f5539;
+  background-color: #b7825f;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 nav.active {
   background-color: #fff;
+  -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -29,10 +44,17 @@ nav.active {
 }
 
 nav .container {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  padding: 20px 0;
+  padding: 10px 0;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
@@ -41,16 +63,23 @@ nav.active .container {
 }
 
 nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   list-style-type: none;
 }
 
 nav a {
   color: #fff;
-  padding: 7px 15px;
+  padding: 7px 17px;
   text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
@@ -73,26 +102,134 @@ nav a.active {
   background-color: #c0392b;
   color: #fff;
 }
+/* Decoracion del Navbar close */
 
-.titulo {
-  font-family: "Fjalla One", sans-serif;
-  font-size: 90px;
-  line-height: 100px;
-  display: block;
-  color: #c19a6b;
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow: 8px 8px 0 #6f4e37;
+/* Foto del logo */
+#HeaderLogo {
+  height: 210px;
+  padding: 1px;
 }
+/* Foto del logo close */
 
-.Frase {
-  color: #6f4e37;
-  text-align: center;
-}
-
+/* Navbar For Mobile responsive */
 .bar {
   width: 20px;
-  width: 3px;
+  height: 3px;
   background-color: black;
   margin: 4px auto;
 }
+
+.menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .nav-menu {
+    display: none;
+    width: 100%;
+  }
+
+  .active {
+    display: block;
+  }
+
+  .logo-container {
+    width: 100%;
+  }
+
+  .nav-menu {
+    width: 100%;
+  }
+
+  .menu-item {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    text-align: end;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 5%;
+  }
+
+  .menu-icon:hover .bar {
+    background-color: darkcyan;
+  }
+}
+
+/* Navbar For Mobile responsive Close*/
+
+/* Footer */
+
+.footer-basic {
+  padding: 40px 0;
+  background-color: #b7825f;
+  color: white;
+}
+
+.footer-basic ul {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 19px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.footer-basic li {
+  padding: 0 10px;
+}
+
+.footer-basic ul a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity: 1;
+}
+
+.footer-basic .social {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.footer-basic .social > a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  margin: 0 8px;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.footer-basic .social > a:hover {
+  opacity: 0.9;
+}
+
+.footer-basic .copyright {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: wheat;
+  margin-bottom: 0;
+}
+
+/* Footer Close */
+
+/* Ruleta */
+
+/* Ruleta Clode */

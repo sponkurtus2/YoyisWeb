@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cool Places</title>
+    <link rel="shorcut icon" type="image/png" href="img/Icon32.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@500&display=swap");
+    </style>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital@1&display=swap");
+    </style>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant&display=swap");
+    </style>
+  </head>
+  <body class="Body">
+    <header>
+      <nav class="navbar">
+        <div class="container">
+          <!-- <a href="index.html" id="HeaderLogo"><img src="/img/NoFondo.svg"></a>  -->
+          <img src="/img/LogoCambiar.svg" id="HeaderLogo" />
+
+          <ul id="nav-list" class="nav-menu">
+            <li class="menu-item">
+              <a href="index.html" class="active"> <em>Home</em> </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="Ruleta.html"> <em>Ruleta</em></a>
+            </li>
+
+            <li class="menu-item">
+              <a href="https://www.facebook.com/drake.junior.336"
+                ><em>Contactar</em></a
+              >
+            </li>
+          </ul>
+
+          <div id="nav-toggle" class="menu-icon">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <h1 id="RuletaTitulo">Ruleta de lugares</h1>
+    <h3 class="TextoRuleta">
+      ¿No puedes decidir a que lugar ir? <br />
+      Descuida, con esta ruleta puedes hacerlo aleatoriamente
+    </h3>
+    <h4 class="TextoRuleta">
+      Despues de obtener un lugar, has click en abrir para ir a la pagina de ese
+      sitio.
+    </h4>
+    <div id="Cen">
+      <input
+        type="button"
+        value="Girar"
+        style="
+          position: sticky;
+          width: 300px;
+          border-bottom: #ddf4d9;
+          font-size: 20px;
+          font-family: 'Cormorant', serif;
+          background-color: #40916c;
+          font-weight: bold;
+          color: white;
+          border-radius: 12px;
+        "
+        id="spin"
+      /><br />
+      <br />
+      <input
+        type="button"
+        value="Visitar lugar!"
+        style="
+          position: static;
+          width: 300px;
+          border-bottom: #ddf4d9;
+          font-size: 20px;
+          font-family: 'Cormorant', serif;
+          background-color: #40916c;
+          font-weight: bold;
+          color: white;
+          border-radius: 12px;
+        "
+        id="ValueMix"
+      />
+    </div>
+    <div id="Cen">
+      <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+
+    <script type="text/javascript">
+      //Ruleta
+      var OptionDictionary = {};
+      var OptionDictionary = {
+        Farolito: "https://www.facebook.com/FarolitoCafeAventurero",
+        "Verona Cafe & Restaurante":
+          "https://www.facebook.com/veronarestautantecafe",
+        "Oh, la la cafe": "https://www.facebook.com/cafeohlalarestaurante",
+        Kimchicha: "https://www.facebook.com/kimchicamx",
+        "Plaza del sol": "https://www.facebook.com/plazadelsolperu",
+        "Museo semila": "https://www.facebook.com/SemillaMuseoInteractivo",
+      };
+
+      var options = [
+        Object.keys(OptionDictionary)[0],
+        Object.keys(OptionDictionary)[1],
+        Object.keys(OptionDictionary)[2],
+        Object.keys(OptionDictionary)[3],
+        Object.keys(OptionDictionary)[4],
+        Object.keys(OptionDictionary)[5],
+      ];
+
+      var startAngle = 0;
+      var arc = Math.PI / (options.length / 2);
+      var spinTimeout = null;
+
+      var spinArcStart = 10;
+      var spinTime = 0;
+      var spinTimeTotal = 0;
+
+      var ctx;
+
+      document.getElementById("spin").addEventListener("click", spin);
+      document.getElementById("ValueMix").addEventListener("click", ValueMix);
+
+      function byte2Hex(n) {
+        var nybHexString = "0123456789ABCDEF";
+        return (
+          String(nybHexString.substr((n >> 4) & 0x0f, 1)) +
+          nybHexString.substr(n & 0x0f, 1)
+        );
+      }
+
+      function RGB2Color(r, g, b) {
+        return "#" + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
+      }
+
+      function getColor(item, maxitem) {
+        var phase = 0;
+        var center = 128;
+        var width = 127;
+        var frequency = (Math.PI * 2) / maxitem;
+
+        red = Math.sin(frequency * item + 2 + phase) * width + center;
+        green = Math.sin(frequency * item + 0 + phase) * width + center;
+        blue = Math.sin(frequency * item + 4 + phase) * width + center;
+
+        return RGB2Color(red, green, blue);
+      }
+
+      function drawRouletteWheel() {
+        var canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+          var outsideRadius = 220;
+          var textRadius = 160;
+          var insideRadius = 125;
+
+          ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, 500, 500);
+
+          ctx.strokeStyle = "white";
+          ctx.lineWidth = 2;
+
+          ctx.font = "bold 16px PT Serif, Arial";
+
+          for (var i = 0; i < options.length; i++) {
+            var angle = startAngle + i * arc;
+            ctx.fillStyle = getColor(i, options.length);
+
+            ctx.beginPath();
+            ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+            ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+            ctx.stroke();
+            ctx.fill();
+            ctx.save();
+            ctx.fillStyle = "black";
+            ctx.translate(
+              250 + Math.cos(angle + arc / 2) * textRadius,
+              250 + Math.sin(angle + arc / 2) * textRadius
+            );
+            ctx.rotate(angle + arc / 2 + Math.PI / 2);
+            var text = options[i];
+            ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+            ctx.restore();
+          }
+
+          //Arrow
+          ctx.fillStyle = "black";
+          ctx.beginPath();
+          ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
+          ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
+          ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
+          ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
+          ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
+          ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
+          ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
+          ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+          ctx.fill();
+        }
+      }
+
+      function spin() {
+        spinAngleStart = Math.random() * 10 + 10;
+        spinTime = 0;
+        spinTimeTotal = Math.random() * 3 + 4 * 1000;
+        rotateWheel();
+      }
+
+      function rotateWheel() {
+        spinTime += 30;
+        if (spinTime >= spinTimeTotal) {
+          stopRotateWheel();
+          return;
+        }
+        var spinAngle =
+          spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+        startAngle += (spinAngle * Math.PI) / 180;
+        drawRouletteWheel();
+        spinTimeout = setTimeout("rotateWheel()", 30);
+      }
+
+      function stopRotateWheel() {
+        clearTimeout(spinTimeout);
+        var degrees = (startAngle * 180) / Math.PI + 90;
+        var arcd = (arc * 180) / Math.PI;
+        var index = Math.floor((360 - (degrees % 360)) / arcd);
+        ctx.save();
+        ctx.font = "bold 30px PT Serif, Arial";
+        ctx.style = "wrap text";
+        var text = options[index];
+        ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+        ctx.restore();
+        return text;
+      }
+
+      function ValueMix() {
+        OptionDictionaryValue = stopRotateWheel();
+        let isMobile = window.matchMedia(
+          "only screen and (max-width: 760px)"
+        ).matches;
+
+        if (isMobile) {
+          window.open(OptionDictionary[OptionDictionaryValue]);
+        }
+        window.location = OptionDictionary[OptionDictionaryValue];
+      }
+
+      function easeOut(t, b, c, d) {
+        var ts = (t /= d) * t;
+        var tc = ts * t;
+        return b + c * (tc + -3 * ts + 3 * t);
+      }
+
+      drawRouletteWheel();
+
+      //Ruleta Close
+    </script>
+
+    <div class="footer-basic">
+      <footer>
+        <div class="social">
+          <a href="#"><i class="icon ion-social-facebook"></i></a>
+        </div>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Te</a></li>
+          <li class="list-inline-item"><a href="#">deseamos</a></li>
+          <li class="list-inline-item"><a href="#">una</a></li>
+          <li class="list-inline-item"><a href="#">excelente</a></li>
+          <li class="list-inline-item"><a href="#">salida :) </a></li>
+        </ul>
+        <p class="copyright">Lalito y Yoyis © 2022</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
