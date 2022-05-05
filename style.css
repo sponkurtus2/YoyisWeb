@@ -215,9 +215,7 @@ nav a.active {
 }
 
 /* Footer Close */
-
 /* Ruleta */
-
 #RuletaTitulo {
   text-align: center;
   font-family: "Libre Bodoni", serif;
@@ -230,8 +228,27 @@ nav a.active {
 
 #Cen {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
-/* Ruleta clore */
+
+/* Ruleta close */
+/* Titulo para tarjetas */
+.Title {
+  height: 480px;
+  font-family: "Akshar", sans-serif;
+}
+
+.NombreLugar {
+  text-align: center;
+}
+
+/* Titulo para tarjetas close */
+/*# sourceMappingURL=style.css.map */
