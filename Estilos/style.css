@@ -242,18 +242,79 @@ nav a.active {
 /* Ruleta close */
 /* Titulo para tarjetas */
 .Title {
-  height: 700px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  height: 480px;
   font-family: "Akshar", sans-serif;
-  position: relative;
 }
 
 .NombreLugar {
-  position: absolute;
-  left: 1%;
-  top: 15%;
+  text-align: center;
 }
 
 /* Titulo para tarjetas close */
+
+/* Seccion Contactar */
+
+.profile-card {
+  background-color: #B4E197;
+  border-radius: 40px;
+  box-shadow: 0 68px 118px rgba(233, 249, 210, 0.5);
+  margin: 30px auto 0;
+  margin-bottom: 30px;
+  padding: 10px;
+  width: 350px;
+  text-align: center;
+}
+
+header #Headerimg {
+  float: left;
+  height: 90px;
+  width: 90px;
+  margin-right: 30px;
+}
+
+header #Headerh1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  padding-top: 6px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+header #Headerh2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 0;
+  text-align: center;
+}
+
+.profile-bio {
+  margin-bottom: 50px;
+  margin-top: 8px;
+}
+
+.profile-bio p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  line-height: 34px;
+}
+
+.profile-social-links {
+  border-top: 1px solid #efefef;
+  list-style: outside none none;
+  padding-top: 30px;
+  text-align: center;
+  margin-left: -40px;
+}
+
+.profile-social-links li {
+  display: inline-block;
+}
+
+.profile-social-links img {
+  height: 60px;
+}
+
+/* Seccion Contactar Close */

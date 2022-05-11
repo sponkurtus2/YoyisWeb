@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cool Places</title>
     <link rel="shorcut icon" type="image/png" href="img/Icon32.png" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="Estilos/style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -35,8 +35,7 @@
     <header>
       <nav class="navbar">
         <div class="container">
-          <!-- <a href="index.html" id="HeaderLogo"><img src="/img/NoFondo.svg"></a>  -->
-          <img src="/img/LogoCambiar.svg" id="HeaderLogo" />
+          <img src="/img/Logo.svg" id="HeaderLogo" />
 
           <ul id="nav-list" class="nav-menu">
             <li class="menu-item">
@@ -48,9 +47,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="https://www.facebook.com/drake.junior.336"
-                ><em>Contactar</em></a
-              >
+              <a href="Contactar.html"><em>Contactar</em></a>
             </li>
           </ul>
 
@@ -108,20 +105,22 @@
       />
     </div>
     <div id="Cen">
-      <canvas id="canvas" width="500" height="500"></canvas>
+      <canvas id="canvas" width="375" height="500"></canvas>
     </div>
 
     <script type="text/javascript">
       //Ruleta
       var OptionDictionary = {};
       var OptionDictionary = {
-        Farolito: "https://www.facebook.com/FarolitoCafeAventurero",
-        "Verona Cafe & Restaurante":
-          "https://www.facebook.com/veronarestautantecafe",
-        "Oh, la la cafe": "https://www.facebook.com/cafeohlalarestaurante",
-        Kimchicha: "https://www.facebook.com/kimchicamx",
-        "Plaza del sol": "https://www.facebook.com/plazadelsolperu",
-        "Museo semila": "https://www.facebook.com/SemillaMuseoInteractivo",
+        Farolito: "Lugares/Farolito.html",
+        "Verona Cafe": "Lugares/Verona.html",
+        "Oh, La La cafe": "Lugares/OhLala.html",
+        Kimchicha: "Lugares/Kimchica.html",
+        "Happy Munch": "Lugares/HappyMunch.html",
+        "Stranger Themes": "Lugares/StrangerT.html",
+        "Parque Infantil": "Lugares/ParqueInfantil.html",
+        "Rock & Bowl": "Lugares/RockBowl.html",
+        "Cafe DEL ALMA": "Lugares/CafeAlma.html",
       };
 
       var options = [
@@ -131,6 +130,9 @@
         Object.keys(OptionDictionary)[3],
         Object.keys(OptionDictionary)[4],
         Object.keys(OptionDictionary)[5],
+        Object.keys(OptionDictionary)[6],
+        Object.keys(OptionDictionary)[7],
+        Object.keys(OptionDictionary)[8],
       ];
 
       var startAngle = 0;
@@ -174,15 +176,15 @@
       function drawRouletteWheel() {
         var canvas = document.getElementById("canvas");
         if (canvas.getContext) {
-          var outsideRadius = 220;
-          var textRadius = 160;
-          var insideRadius = 125;
+          var outsideRadius = 185;
+          var textRadius = 150;
+          var insideRadius = 110;
 
           ctx = canvas.getContext("2d");
-          ctx.clearRect(0, 0, 500, 500);
+          ctx.clearRect(50, 50, 500, 500);
 
           ctx.strokeStyle = "white";
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 1;
 
           ctx.font = "bold 16px PT Serif, Arial";
 
@@ -191,14 +193,14 @@
             ctx.fillStyle = getColor(i, options.length);
 
             ctx.beginPath();
-            ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
-            ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+            ctx.arc(187, 245, outsideRadius, angle, angle + arc, false);
+            ctx.arc(187, 245, insideRadius, angle + arc, angle, true);
             ctx.stroke();
             ctx.fill();
             ctx.save();
             ctx.fillStyle = "black";
             ctx.translate(
-              250 + Math.cos(angle + arc / 2) * textRadius,
+              189 + Math.cos(angle + arc / 2) * textRadius,
               250 + Math.sin(angle + arc / 2) * textRadius
             );
             ctx.rotate(angle + arc / 2 + Math.PI / 2);
@@ -210,14 +212,14 @@
           //Arrow
           ctx.fillStyle = "black";
           ctx.beginPath();
-          ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
-          ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-          ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
-          ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
-          ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-          ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
-          ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
-          ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+          ctx.moveTo(185 - 4, 240 - (outsideRadius + 5));
+          ctx.lineTo(185 + 4, 240 - (outsideRadius + 5));
+          ctx.lineTo(185 + 4, 240 - (outsideRadius - 5));
+          ctx.lineTo(185 + 9, 240 - (outsideRadius - 5));
+          ctx.lineTo(185 + 0, 240 - (outsideRadius - 13));
+          ctx.lineTo(185 - 9, 240 - (outsideRadius - 5));
+          ctx.lineTo(185 - 4, 240 - (outsideRadius - 5));
+          ctx.lineTo(185 - 4, 240 - (outsideRadius + 5));
           ctx.fill();
         }
       }
@@ -251,7 +253,7 @@
         ctx.font = "bold 30px PT Serif, Arial";
         ctx.style = "wrap text";
         var text = options[index];
-        ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+        ctx.fillText(text, 183 - ctx.measureText(text).width / 2, 250 + 10);
         ctx.restore();
         return text;
       }
@@ -282,7 +284,9 @@
     <div class="footer-basic">
       <footer>
         <div class="social">
-          <a href="#"><i class="icon ion-social-facebook"></i></a>
+          <a href="https://www.facebook.com/yolotzin.labastida"
+            ><i class="icon ion-social-facebook"></i
+          ></a>
         </div>
         <ul class="list-inline">
           <li class="list-inline-item"><a href="#">Te</a></li>
@@ -291,10 +295,10 @@
           <li class="list-inline-item"><a href="#">excelente</a></li>
           <li class="list-inline-item"><a href="#">salida :) </a></li>
         </ul>
-        <p class="copyright">Lalito y Yoyis © 2022</p>
+        <p class="copyright">Yoyis © 2022</p>
       </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="Estilos/script.js"></script>
   </body>
 </html>
